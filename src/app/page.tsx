@@ -1,101 +1,242 @@
-import Image from "next/image";
+// "use client"
+// import { Inter } from "next/font/google";
+// import { useState } from "react";
+
+// const inter = Inter({ subsets: ["latin"] });
+
+// export default function Home() {
+//   const [creatorStatus, setcreatorStatus] = useState('solo')
+//   const [firstName, setfirstName] = useState('')
+//   const [secondName, setSecondName] = useState('')
+//   const [email, setEmail] = useState('')
+//   const [numer, setNumer] = useState('')
+//   const [status, setStatus] = useState<any>(null)
+//   const [jobTitle, setJobTitle] = useState('')
+//   const [err, setErr] = useState('')
+
+//   const handleSumit = async (e: any) => {
+//     e.preventDEfault();
+
+//     const formData = {
+//       firstName: firstName,
+//       secondName: secondName,
+//       email: email,
+//       numer: numer,
+//       creatorStatus: creatorStatus
+//     };
+
+//     setStatus("loading")
+
+//     try {
+//       const response = await fetch("/api/submit-form", {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify(formData),
+//       })
+//       if (response.ok) {
+//         setStatus("done")
+//       } else {
+//         console.log("Error sunmitting form");
+//         setErr("Error submitting from")
+//       }
+
+//     } catch (error) {
+//       console.error("Error submitting from", error);
+//       setErr("Error submitting from")
+
+//     }
+
+//   }
+
+
+//   return (
+//     <main className={` ${inter.className}`}>
+//       <form onSubmit={handleSumit} className="max-w-md mx-auto p-6 shadow-md rounded-md">
+//         <h1 className="text-2xl font-bold mb-4">Send Email</h1>
+
+//         <label className="block text-gray-700">Name:</label>
+//         <input required
+//           value={firstName}
+//           onChange={(event) => setfirstName(event.target.value)}
+//           type="text"
+//           name="name"
+//           id=""
+//           className="border-b border-gray-500 w-full py-2 mb-4"
+//           placeholder="First name"
+//         />
+
+//         <label className="block text-gray-700">Second Name:</label>
+//         <input required
+//           value={secondName}
+//           onChange={(event) => setSecondName(event.target.value)}
+//           type="text"
+//           name="secondName"
+//           id=""
+//           className="border-b border-gray-500 w-full py-2 mb-4"
+//           placeholder="Second name"
+//         />
+
+//         <label className="block text-gray-700">Job Title:</label>
+//         <input required
+//           value={jobTitle}
+//           onChange={(event) => setJobTitle(event.target.value)}
+//           type="text"
+//           name="jobTitle"
+//           id=""
+//           className="border-b border-gray-500 w-full py-2 mb-4"
+//           placeholder="Job title"
+//         />
+
+//         <label className="block text-gray-700">Email:</label>
+//         <input required
+//           value={email}
+//           onChange={(event) => setEmail(event.target.value)}
+//           type="email"
+//           name="email"
+//           id=""
+//           className="border-b border-gray-500 w-full py-2 mb-4"
+//           placeholder="Email"
+//         />
+
+//         <label className="block text-gray-700">Phone Number:</label>
+//         <input required
+//           value={numer}
+//           maxLength={11}
+//           pattern="[0-9]{11}"
+//           type="number"
+//           name="number"
+//           id=""
+//           className="border-b border-gray-500 w-full py-2 mb-4"
+//           placeholder="Phone number"
+//         />
+
+//         <div
+//           onClick={() => setcreatorStatus("solo")}
+//           className=""><p>Numer of employees</p>
+//           <div className={`flex gap-3 py-3 w-full font-light rounded border flex-row creatorStatus === "solo" ? "border-white" : "boder-gray-500" `}>
+
+//           </div>
+
+//           <div
+//             onClick={() => setcreatorStatus('team')}
+//             className={`flex gap-3 py-3 w-full font-light rounded border flex-row creatorStatus === "solo" ? "border-white" : "boder-gray-500" `}>
+
+//           </div>
+//         </div>
+
+//         <button type="submit"
+//           className="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">
+
+//           {!status ? "get in touch"
+//             : status === "loading"
+//               ? "Sending.."
+//               : status === "done"
+//                 ? "Sent!"
+//                 : null
+
+//           }
+//         </button>
+//       </form>
+//     </main>
+//   );
+// }
+
+
+
+
+
+"use client"
+import { useState } from "react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [formData, setFormData] = useState({
+    name: "",
+    secondName: "",
+    jobTitle: "",
+    email: "",
+    number: "",
+  });
+  
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+  const handleChange = (e:any) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = () => {
+    // Add form submission logic here
+    console.log(formData);
+  };
+  
+
+  return (
+    <>
+      <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-md">
+        <h1 className="text-2xl font-bold mb-4">Send Email</h1>
+
+        <label className="block text-gray-700">Name:</label>
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          className="border-b border-gray-500 w-full py-2 mb-4"
+          placeholder="First name"
+        />
+
+        <label className="block text-gray-700">Second Name:</label>
+        <input
+          type="text"
+          name="secondName"
+          value={formData.secondName}
+          onChange={handleChange}
+          className="border-b border-gray-500 w-full py-2 mb-4"
+          placeholder="Second name"
+        />
+
+        <label className="block text-gray-700">Job Title:</label>
+        <input
+          type="text"
+          name="jobTitle"
+          value={formData.jobTitle}
+          onChange={handleChange}
+          className="border-b border-gray-500 w-full py-2 mb-4"
+          placeholder="Job title"
+        />
+
+        <label className="block text-gray-700">Email:</label>
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          className="border-b border-gray-500 w-full py-2 mb-4"
+          placeholder="Email"
+        />
+
+        <label className="block text-gray-700">Phone Number:</label>
+        <input
+          type="number"
+          name="number"
+          value={formData.number}
+          onChange={handleChange}
+          className="border-b border-gray-500 w-full py-2 mb-4"
+          placeholder="Phone number"
+        />
+
+        <button
+          onClick={handleSubmit}
+          className="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          Send
+        </button>
+      </div>
+    </>
   );
 }
+
+
+
+
